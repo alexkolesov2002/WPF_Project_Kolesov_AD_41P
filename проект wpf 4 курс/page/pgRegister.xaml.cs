@@ -42,36 +42,43 @@ namespace проект_wpf_4_курс
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            auth LoginAndPass = new auth() { login = txtLogin.Text, password = txtPass.Password, role = 2 };
-            BaseConnect.BaseModel.auth.Add(LoginAndPass);//добавить в модель
-            BaseConnect.BaseModel.SaveChanges();
-            
-            users User = new users() { name = txtName.Text, id = LoginAndPass.id, gender = (int)listGenders.SelectedValue, dr = (DateTime)dtDr.SelectedDate };
-            BaseConnect.BaseModel.users.Add(User);//добавить в модель
-           if (ch1st.IsChecked == true)
+            try
             {
-                users_to_traits users_To_Traits = new users_to_traits();
-                users_To_Traits.id_user = User.id;
-                users_To_Traits.id_trait = 1;
-                BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                auth LoginAndPass = new auth() { login = txtLogin.Text, password = txtPass.Password, role = 2 };
+                BaseConnect.BaseModel.auth.Add(LoginAndPass);//добавить в модель
+                BaseConnect.BaseModel.SaveChanges();
+
+                users User = new users() { name = txtName.Text, id = LoginAndPass.id, gender = (int)listGenders.SelectedValue, dr = (DateTime)dtDr.SelectedDate };
+                BaseConnect.BaseModel.users.Add(User);//добавить в модель
+                if (ch1st.IsChecked == true)
+                {
+                    users_to_traits users_To_Traits = new users_to_traits();
+                    users_To_Traits.id_user = User.id;
+                    users_To_Traits.id_trait = 1;
+                    BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                }
+                if (ch2d.IsChecked == true)
+                {
+                    users_to_traits users_To_Traits = new users_to_traits();
+                    users_To_Traits.id_user = User.id;
+                    users_To_Traits.id_trait = 2;
+                    BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                }
+
+                if (ch3d.IsChecked == true)
+                {
+                    users_to_traits users_To_Traits = new users_to_traits();
+                    users_To_Traits.id_user = User.id;
+                    users_To_Traits.id_trait = 3;
+                    BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                }
+                BaseConnect.BaseModel.SaveChanges();
+                MessageBox.Show("Вы успешно зарегестрировались");
             }
-            if (ch2d.IsChecked == true)
+            catch (Exception exp)
             {
-                users_to_traits users_To_Traits = new users_to_traits();
-                users_To_Traits.id_user = User.id;
-                users_To_Traits.id_trait = 2;
-                BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
             }
-            
-            if (ch3d.IsChecked == true)
-            {
-                users_to_traits users_To_Traits = new users_to_traits();
-                users_To_Traits.id_user = User.id;
-                users_To_Traits.id_trait = 3;
-                BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
-            }
-            BaseConnect.BaseModel.SaveChanges();
-            MessageBox.Show("Вы успешно зарегестрировались");
 
         }
 

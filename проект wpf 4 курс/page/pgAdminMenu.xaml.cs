@@ -26,15 +26,23 @@ namespace проект_wpf_4_курс
             InitializeComponent();
             users = BaseConnect.BaseModel.users.ToList();
             lbUsersList.ItemsSource = users;
+            
         }
 
         private void lbTraits_Loaded(object sender, RoutedEventArgs e)
         {
-            //senser содержит объект, который вызвал данное событие, но только у него объектный тип, надо преобразовать
-            ListBox lb = (ListBox)sender;//lb содержит ссылку на тот список, который вызвал это событие
-            int index = Convert.ToInt32(lb.Uid);//получаем ID элемента списка. в данном случае оно совпадает с id user
-            lb.ItemsSource = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == index).ToList();
-            lb.DisplayMemberPath = "traits.trait";//показываем пользователю текстовое описание качества
+            try
+            {
+                //senser содержит объект, который вызвал данное событие, но только у него объектный тип, надо преобразовать
+                ListBox lb = (ListBox)sender;//lb содержит ссылку на тот список, который вызвал это событие
+                int index = Convert.ToInt32(lb.Uid);//получаем ID элемента списка. в данном случае оно совпадает с id user
+                lb.ItemsSource = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == index).ToList();
+                lb.DisplayMemberPath = "traits.trait";//показываем пользователю текстовое описание качества
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
@@ -49,12 +57,18 @@ namespace проект_wpf_4_курс
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            Button btnedit = (Button)sender;
-            int index = Convert.ToInt32(btnedit.Uid);
-            auth CurrentUser = BaseConnect.BaseModel.auth.FirstOrDefault(x => x.id == index);
-            MessageBox.Show(""+index);
-            LoadPages.switchPage.Navigate(new pgEditUser(CurrentUser));
+            try
+            {
+                Button btnedit = (Button)sender;
+                int index = Convert.ToInt32(btnedit.Uid);
+                auth CurrentUser = BaseConnect.BaseModel.auth.FirstOrDefault(x => x.id == index);
+                MessageBox.Show("" + index);
+                LoadPages.switchPage.Navigate(new pgEditUser(CurrentUser));
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
+            }
         }
     }
 }

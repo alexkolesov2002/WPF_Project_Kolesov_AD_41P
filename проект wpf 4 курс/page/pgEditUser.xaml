@@ -12,19 +12,25 @@
         <ScrollViewer>
             <GroupBox Header="Введите данные о себе" Margin="20">
                 <StackPanel>
-                    <GroupBox Header="Ваше имя">
+                    <GroupBox Header="Логин пользователя">
+                        <TextBox x:Name="txtLogin"  />
+                    </GroupBox>
+                    <GroupBox Header="Пароль пользователя">
+                        <TextBox x:Name="txtPass"  />
+                    </GroupBox>
+                    <GroupBox Header="Имя пользователя">
                         <TextBox x:Name="txtName"  />
                     </GroupBox>
-                    <GroupBox Header="Ваша дата рождения">
+                    <GroupBox Header=" Дата рождения пользователя">
                         <DatePicker Name="dtDr" />
                     </GroupBox>
                     <StackPanel>
-                        <TextBlock  Text="Ваш текущий пол:  "  x:Name="txtPol" Margin="5" > </TextBlock>
+                        <TextBlock  Text="Текущий пол пользователя:  "  x:Name="txtPol" Margin="5" > </TextBlock>
                     </StackPanel>
-                    <GroupBox Header="Выберите ваш пол">
+                    <GroupBox Header="Изменить при необходимости">
                         <ListBox x:Name="listGenders"/>
                     </GroupBox>
-                    <GroupBox Header="Ваши качества личности">
+                    <GroupBox Header="Качества личности пользователя">
                         <StackPanel>
                             <CheckBox x:Name="ch1st"  ></CheckBox>
                             <CheckBox x:Name="ch2d" ></CheckBox>

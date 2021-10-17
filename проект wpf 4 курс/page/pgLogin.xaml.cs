@@ -50,12 +50,12 @@ namespace проект_wpf_4_курс
                 }
                 else
                 {
-                    MessageBox.Show("такого пользователя нет");
+                    MessageBox.Show("Пользователь не зарегестрирован");
                 }
             }
-            catch
+            catch (Exception exp)
             {
-                MessageBox.Show("какая-то неизвестная ошибка");
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
             }
 
         }

@@ -36,8 +36,9 @@ namespace проект_wpf_4_курс
                 }
             }
             catch
+            (Exception exp)
             {
-                MessageBox.Show("информации о вас нет в системе");
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
             }
 
         }

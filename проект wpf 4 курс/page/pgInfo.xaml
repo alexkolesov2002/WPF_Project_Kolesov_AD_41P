@@ -14,7 +14,7 @@
                 <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
 
-                    <GroupBox Header="Информация о пользователе" Margin="20" Height="315" Width="329">
+                    <GroupBox Header="Информация о вас" Margin="20" Height="315" Width="329">
                         <StackPanel>
                             <GroupBox Header="имя">
                                 <TextBlock x:Name="tbName"/>

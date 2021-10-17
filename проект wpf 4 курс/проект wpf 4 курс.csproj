@@ -89,7 +89,7 @@
     <Compile Include="page\pgRegister.xaml.cs">
       <DependentUpon>pgRegister.xaml</DependentUpon>
     </Compile>
-    <Compile Include="pgEditUser.xaml.cs">
+    <Compile Include="page\pgEditUser.xaml.cs">
       <DependentUpon>pgEditUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="roles.cs">
@@ -132,7 +132,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="pgEditUser.xaml">
+    <Page Include="page\pgEditUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
