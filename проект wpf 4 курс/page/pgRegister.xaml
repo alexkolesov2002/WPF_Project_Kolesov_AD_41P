@@ -1,0 +1,47 @@
+﻿<Page x:Class="проект_wpf_4_курс.pgRegister"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:проект_wpf_4_курс"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pgRegister">
+
+    <Grid>
+        <Grid>
+            <ScrollViewer>
+                <GroupBox Header="Введите данные о себе" Margin="20">
+                    <StackPanel>
+                        <GroupBox Header="Введите логин">
+                            <TextBox x:Name="txtLogin"/>
+                        </GroupBox>
+                        <GroupBox Header="Введите пароль">
+                            <PasswordBox x:Name="txtPass"/>
+                        </GroupBox>
+                        <GroupBox Header="Введите имя">
+                            <TextBox x:Name="txtName"/>
+                        </GroupBox>
+                        <GroupBox Header="Введите дату рождения">
+                            <DatePicker Name="dtDr" />
+                        </GroupBox>
+                        <GroupBox Header="Введите пол">
+                            <ListBox x:Name="listGenders"/>
+                        </GroupBox>
+                        <GroupBox Header="Введите качества личности">
+                            <StackPanel>
+                                <CheckBox x:Name="ch1st"  > </CheckBox>
+                                <CheckBox x:Name="ch2d" ></CheckBox>
+                                <CheckBox x:Name="ch3d" > </CheckBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <Button  Content ="Зарегестрироваться"  Name="btnRegister" Click="btnRegister_Click" >
+
+                        </Button>
+                        <Button Content="Назад" Name="btnBack" Click="btnBack_Click"/>
+                    </StackPanel>
+                </GroupBox>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>
