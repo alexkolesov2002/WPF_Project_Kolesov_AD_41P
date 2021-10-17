@@ -73,7 +73,7 @@ namespace проект_wpf_4_курс
                     BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
                 }
                 BaseConnect.BaseModel.SaveChanges();
-                MessageBox.Show("Вы успешно зарегестрировались");
+                MessageBox.Show("Успешная регистрация");
             }
             catch (Exception exp)
             {

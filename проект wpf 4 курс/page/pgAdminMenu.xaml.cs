@@ -47,11 +47,16 @@ namespace проект_wpf_4_курс
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-
+            users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = users;
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
+            int OT = Convert.ToInt32(txtOT.Text) - 1;//т.к. индексы начинаются с нуля
+            int DO = Convert.ToInt32(txtDO.Text);
+            List<users> lu1 = users.Skip(OT).Take(DO - OT).ToList();
+            lbUsersList.ItemsSource = lu1;
 
         }
 
@@ -69,6 +74,23 @@ namespace проект_wpf_4_курс
             {
                 MessageBox.Show("Возникла  ошибка" + exp.Message);
             }
+        }
+
+        private void RemoveUser_Click(object sender, RoutedEventArgs e)
+        {
+            Button btnedit = (Button)sender;
+            int index = Convert.ToInt32(btnedit.Uid);
+            auth CurrentUser = BaseConnect.BaseModel.auth.FirstOrDefault(x => x.id == index);
+            BaseConnect.BaseModel.auth.Remove(CurrentUser);
+            BaseConnect.BaseModel.SaveChanges();
+            users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = users;
+            
+        }
+
+        private void btnNewUser_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.switchPage.Navigate(new pgRegister());
         }
     }
 }
