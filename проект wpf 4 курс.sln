@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "проект wpf 4 курс", "проект wpf 4 курс\проект wpf 4 курс.csproj", "{3DBF22F7-DD7F-44A9-ADBB-F85A3012E39C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLL", "DLL\DLL.csproj", "{CD339B27-41C0-45CB-913F-40EB090A3CD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3DBF22F7-DD7F-44A9-ADBB-F85A3012E39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DBF22F7-DD7F-44A9-ADBB-F85A3012E39C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DBF22F7-DD7F-44A9-ADBB-F85A3012E39C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD339B27-41C0-45CB-913F-40EB090A3CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD339B27-41C0-45CB-913F-40EB090A3CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD339B27-41C0-45CB-913F-40EB090A3CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD339B27-41C0-45CB-913F-40EB090A3CD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

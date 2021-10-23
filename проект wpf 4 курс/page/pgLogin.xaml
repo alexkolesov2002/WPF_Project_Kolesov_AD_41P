@@ -24,10 +24,13 @@
                 <Button Content ="Регистрация" Name="btnRegistr" Click="btnRegistr_Click" HorizontalAlignment="Stretch"> 
                     
                 </Button>
+                    <Button Content ="Работа с DLL" Name="btnDLL" Click="btnDLL_Click"  HorizontalAlignment="Stretch">
+
+                    </Button>
 
 
 
-            </StackPanel>
+                </StackPanel>
         </GroupBox>
         </ScrollViewer>
     </Grid>

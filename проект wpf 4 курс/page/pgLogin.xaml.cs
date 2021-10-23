@@ -25,7 +25,7 @@ namespace проект_wpf_4_курс
             InitializeComponent();
         }
 
-       
+
         private void btnAutorise_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -64,8 +64,12 @@ namespace проект_wpf_4_курс
         {
             LoadPages.switchPage.Navigate(new pgRegister());
         }
+
+        private void btnDLL_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.switchPage.Navigate(new pgDLL());
+        }
+
+
     }
-
-       
 }
-

@@ -80,6 +80,9 @@
     <Compile Include="page\pgAdminMenu.xaml.cs">
       <DependentUpon>pgAdminMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="page\pgDLL.xaml.cs">
+      <DependentUpon>pgDLL.xaml</DependentUpon>
+    </Compile>
     <Compile Include="page\pgLogin.xaml.cs">
       <DependentUpon>pgLogin.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="page\pgAdminMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pgDLL.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,7 +188,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DLL\DLL.csproj">
+      <Project>{cd339b27-41c0-45cb-913f-40eb090a3cd0}</Project>
+      <Name>DLL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
