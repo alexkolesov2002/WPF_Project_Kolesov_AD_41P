@@ -7,27 +7,49 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="pgDLL">
+    <Page.Resources>
 
+        <DataTemplate x:Key="DT1">
+            <!--Шаблон для вывода информации о пользователе-->
+            <StackPanel>
+                <GroupBox Header="имя">
+                    <TextBlock Text="{Binding name}"/>
+                </GroupBox>
+                <GroupBox Header=" дата рождения">
+                    <TextBlock Text="{Binding dr, StringFormat={}{0:dd.MM.yyyy}}"/>
+                    <!--указание формата вывода даты-->
+                </GroupBox>
+                <GroupBox Header=" пол">
+                    <TextBlock Text="{Binding genders.gender}"/>
+                    <!--переход к сущности genders, т.к. в users содержится только id пола-->
+                </GroupBox>
+                <GroupBox Header="качества личности">
+                    <!--тут будет вложенный список, т.к. связи многие ко многим-->
+                    <ListBox Name="lbTraits" Loaded="lbTraits_Loaded"  Uid="{Binding id}"/>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </GroupBox>
+                <!--тут будет вложенный список, т.к. связи многие ко многим-->
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="45*"/>
-            <ColumnDefinition Width="69*"/>
-            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="23*"/>
-            <RowDefinition Height="41*"/>
-            <RowDefinition Height="26*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Показать средний возраст пользователей" Name="btnVozrast" Click="btnVozrast_Click">
-                
+
             </Button>
             <TextBox x:Name="txtName"></TextBox>
-            <Button Content="Найти пользователей" Name="btnFind" Click="btnFind_Click">
-
-            </Button>
-
+            <Button Content="Найти пользователей" Name="btnFind" Click="btnFind_Click"></Button>
+            <Button Content="Вернуть все как было" Click="Button_Click" ></Button>
+            <Button Content="Назад" Name="btnBack" Click="btnBack_Click"></Button>
         </StackPanel>
+        <ListBox Name="lbUsersList" ItemTemplate="{StaticResource DT1}" Grid.Row="1"/>
+
     </Grid>
 </Page>

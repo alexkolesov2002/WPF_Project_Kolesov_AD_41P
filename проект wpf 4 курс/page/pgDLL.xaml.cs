@@ -26,7 +26,7 @@ namespace проект_wpf_4_курс
         public pgDLL()
         {
             InitializeComponent();
-         
+            users = BaseConnect.BaseModel.users.ToList();
         }
 
         private void btnVozrast_Click(object sender, RoutedEventArgs e)
@@ -42,7 +42,35 @@ namespace проект_wpf_4_курс
 
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
+            users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = Class1.ListUserow(users, txtName.Text);
+        }
 
+        private void lbTraits_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //senser содержит объект, который вызвал данное событие, но только у него объектный тип, надо преобразовать
+                ListBox lb = (ListBox)sender;//lb содержит ссылку на тот список, который вызвал это событие
+                int index = Convert.ToInt32(lb.Uid);//получаем ID элемента списка. в данном случае оно совпадает с id user
+                lb.ItemsSource = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == index).ToList();
+                lb.DisplayMemberPath = "traits.trait";//показываем пользователю текстовое описание качества
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show("Возникла  ошибка" + exp.Message);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = users;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.switchPage.GoBack();
         }
     }
 }

@@ -33,6 +33,13 @@ namespace DLL
             Vozrast /= mas.Length;
             return Vozrast;
         }
+         public List<users> ListUserow(List<users> Polzovateli, string Name)
+        {
+            List<users> Polzovateli2 = Polzovateli.Where(x => x.name.Contains(Name)).ToList();
+
+
+            return Polzovateli2;
+        }
 
 
 
