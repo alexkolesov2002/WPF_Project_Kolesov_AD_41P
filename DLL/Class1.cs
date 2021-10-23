@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 namespace DLL
 {
-    public class Class1
+    public  class Class1
     {   
         public double VozrastUser(List <DateTime> ListDat)
         {
@@ -33,14 +35,14 @@ namespace DLL
             Vozrast /= mas.Length;
             return Vozrast;
         }
-         public List<users> ListUserow(List<users> Polzovateli, string Name)
+        public List<string> ListUserow(List<string> nam, string n)
         {
-            List<users> Polzovateli2 = Polzovateli.Where(x => x.name.Contains(Name)).ToList();
-
-
-            return Polzovateli2;
+            List<string> names;
+            names = new List<string>();
+            nam = nam.Where(x => x.Contains(n)).ToList();
+            names = nam;// возвращаем результат в виде списка, к которому применялись активные фильтры
+            return names;
         }
-
 
 
     }

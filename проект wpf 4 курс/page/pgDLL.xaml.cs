@@ -22,11 +22,12 @@ namespace проект_wpf_4_курс
     {
         Class1 Class1 = new Class1();
         List<users> users;
+        List<string> names;
         public  List<DateTime> dates;
         public pgDLL()
         {
             InitializeComponent();
-            users = BaseConnect.BaseModel.users.ToList();
+            
         }
 
         private void btnVozrast_Click(object sender, RoutedEventArgs e)
@@ -42,30 +43,42 @@ namespace проект_wpf_4_курс
 
         private void btnFind_Click(object sender, RoutedEventArgs e)
         {
+            Users.Text = "";
+            names = new List<string>();
             users = BaseConnect.BaseModel.users.ToList();
-            lbUsersList.ItemsSource = Class1.ListUserow(users, txtName.Text);
+            foreach (users userss in users)
+            {
+                names.Add(userss.name);
+            }
+
+            if (txtName.Text == "")
+            {
+                MessageBox.Show("Введите параметр поиска");
+            }
+            else
+            {
+
+                if (Class1.ListUserow(names, txtName.Text).Count == 0)
+                {
+                    MessageBox.Show("Ничего не найдено");
+                }
+                else
+                {
+                    foreach (string u in Class1.ListUserow(names, txtName.Text))
+                    {
+                        Users.Text += u + "\n";
+                    }
+                }
+            }
         }
 
-        private void lbTraits_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //senser содержит объект, который вызвал данное событие, но только у него объектный тип, надо преобразовать
-                ListBox lb = (ListBox)sender;//lb содержит ссылку на тот список, который вызвал это событие
-                int index = Convert.ToInt32(lb.Uid);//получаем ID элемента списка. в данном случае оно совпадает с id user
-                lb.ItemsSource = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == index).ToList();
-                lb.DisplayMemberPath = "traits.trait";//показываем пользователю текстовое описание качества
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show("Возникла  ошибка" + exp.Message);
-            }
-        }
+       
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            users = BaseConnect.BaseModel.users.ToList();
-            lbUsersList.ItemsSource = users;
+
+            Users.Text = "";
+            
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
