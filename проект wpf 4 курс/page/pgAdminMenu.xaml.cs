@@ -20,11 +20,19 @@ namespace проект_wpf_4_курс
     /// </summary>
     public partial class pgAdminMenu : Page
     {
+        List<users> lu1;
         List<users> users;
         public pgAdminMenu()
         {
             InitializeComponent();
+           
             users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = users;
+            
+            lbGenderFilter.ItemsSource = BaseConnect.BaseModel.genders.ToList();
+            lbGenderFilter.SelectedValuePath = "id";
+            lbGenderFilter.DisplayMemberPath = "gender";
+            lu1 = users;
             lbUsersList.ItemsSource = users;
             
         }
@@ -47,15 +55,19 @@ namespace проект_wpf_4_курс
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            users = BaseConnect.BaseModel.users.ToList();
-            lbUsersList.ItemsSource = users;
+            lbUsersList.ItemsSource = users;//в качестве источника данных исходный список
+            lu1 = users;
+            lbGenderFilter.SelectedIndex = -1; //сбрасываем выбранный элемент списка
+            txtNameFilter.Text = "";//сбрасываем фильтр на строку
+            txtOT.Text = "";
+            txtDO.Text = "";
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
             int OT = Convert.ToInt32(txtOT.Text) - 1;//т.к. индексы начинаются с нуля
             int DO = Convert.ToInt32(txtDO.Text);
-            List<users> lu1 = users.Skip(OT).Take(DO - OT).ToList();
+            lu1 = users.Skip(OT).Take(DO - OT).ToList();
             lbUsersList.ItemsSource = lu1;
 
         }
@@ -91,6 +103,38 @@ namespace проект_wpf_4_курс
         private void btnNewUser_Click(object sender, RoutedEventArgs e)
         {
             LoadPages.switchPage.Navigate(new pgRegister());
+        }
+
+        private void Filter(object sender, RoutedEventArgs e)
+        {
+            lu1 = users;
+            //фильтр по количеству            
+            try
+            {
+                int OT = Convert.ToInt32(txtOT.Text) - 1;//т.к. индексы начинаются с нуля
+                int DO = Convert.ToInt32(txtDO.Text);
+                //skip - пропустить определенное количество записей
+                //take - выбрать определенное количество записей
+                lu1 = users.Skip(OT).Take(DO - OT).ToList();
+            }
+            catch
+            {
+                //ничего не надо делать, если этот фильтр не применен
+            }
+            //фильтр по полу
+            if (lbGenderFilter.SelectedValue != null)//если пункт из списка не выбран, то сам фильтр работать не будет
+            {
+                lu1 = lu1.Where(x => x.gender == (int)lbGenderFilter.SelectedValue).ToList();
+            }
+
+            //фильтр по имени
+            if (txtNameFilter.Text != "")
+            {
+                lu1 = lu1.Where(x => x.name.Contains(txtNameFilter.Text)).ToList();
+            }
+
+            lbUsersList.ItemsSource = lu1;// возвращаем результат в виде списка, к которому применялись активные фильтры
+           //меняем количество элементов в списке для постраничной навигации
         }
     }
 }
