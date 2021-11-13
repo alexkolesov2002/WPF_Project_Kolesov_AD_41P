@@ -108,33 +108,53 @@ namespace проект_wpf_4_курс
         private void Filter(object sender, RoutedEventArgs e)
         {
             lu1 = users;
-            //фильтр по количеству            
+                
             try
             {
-                int OT = Convert.ToInt32(txtOT.Text) - 1;//т.к. индексы начинаются с нуля
+                int OT = Convert.ToInt32(txtOT.Text) - 1;
                 int DO = Convert.ToInt32(txtDO.Text);
-                //skip - пропустить определенное количество записей
-                //take - выбрать определенное количество записей
+                
                 lu1 = users.Skip(OT).Take(DO - OT).ToList();
             }
             catch
             {
-                //ничего не надо делать, если этот фильтр не применен
+                
             }
-            //фильтр по полу
-            if (lbGenderFilter.SelectedValue != null)//если пункт из списка не выбран, то сам фильтр работать не будет
+         
+            if (lbGenderFilter.SelectedValue != null)
             {
                 lu1 = lu1.Where(x => x.gender == (int)lbGenderFilter.SelectedValue).ToList();
             }
 
-            //фильтр по имени
+           
             if (txtNameFilter.Text != "")
             {
                 lu1 = lu1.Where(x => x.name.Contains(txtNameFilter.Text)).ToList();
             }
 
-            lbUsersList.ItemsSource = lu1;// возвращаем результат в виде списка, к которому применялись активные фильтры
-           //меняем количество элементов в списке для постраничной навигации
+            lbUsersList.ItemsSource = lu1;
+        }
+
+        private void UserImage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Image IMG = sender as Image;
+            int ind = Convert.ToInt32(IMG.Uid);
+            users U = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == ind);
+            BitmapImage BI;
+            switch (U.gender)
+            {
+                case 1:
+                    BI = new BitmapImage(new Uri(@"/res/Dog.jpg", UriKind.Relative));
+                    break;
+                case 2:
+                    BI = new BitmapImage(new Uri(@"/res/Panda.jpg", UriKind.Relative));
+                    break;
+                default:
+                    BI = new BitmapImage(new Uri(@"/res/unnamed.jpg", UriKind.Relative));
+                    break;
+            }
+
+            IMG.Source = BI;
         }
     }
 }

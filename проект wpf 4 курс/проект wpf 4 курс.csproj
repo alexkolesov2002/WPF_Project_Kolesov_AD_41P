@@ -208,6 +208,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="res\Dog.jpg" />
+    <Resource Include="res\Panda.jpg" />
+    <Resource Include="res\unnamed.jpg" />
     <Resource Include="res\3733.png" />
     <Resource Include="res\Niva-FAM1.jpg" />
   </ItemGroup>

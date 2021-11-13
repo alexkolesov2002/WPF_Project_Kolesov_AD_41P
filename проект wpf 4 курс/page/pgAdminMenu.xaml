@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:проект_wpf_4_курс"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="pgAdminMenu">
     <Page.Resources>
 
@@ -41,6 +41,7 @@
                     <ListBox Name="lbTraits" Loaded="lbTraits_Loaded" Uid="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </GroupBox>
+                <Image x:Name="UserImage" Loaded="UserImage_Loaded" Uid="{Binding id}"/>
                 <!--тут будет вложенный список, т.к. связи многие ко многим-->
                 <StackPanel Margin="5" >
                     <Button Template="{StaticResource EditUser}"  HorizontalAlignment="Right" VerticalAlignment="Center"   Click="Button_Click" Uid="{Binding id}"/>
@@ -75,6 +76,9 @@
             <Button Name="btnGo" Content="Вывести" Click="Filter" Width="50" Margin="5"/>
             <Button Name="btnReset" Content="Сброс" Click="btnReset_Click" Width="50" Margin="5"/>
             <Button x:Name="btnNewUser" Content="Добавить пользователя"  Margin="5" Click="btnNewUser_Click"></Button>
+            <GroupBox Header="Сколько вывести пользователь">
+                <TextBox Name="txtPageCount" />
+            </GroupBox>
         </StackPanel>
         <ListBox Name="lbUsersList" ItemTemplate="{StaticResource DT1}" Grid.Row="1"/>
     </Grid>
