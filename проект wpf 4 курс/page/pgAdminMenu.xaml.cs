@@ -22,6 +22,7 @@ namespace проект_wpf_4_курс
     {
         List<users> lu1;
         List<users> users;
+        PageChange NewPage = new PageChange();
         public pgAdminMenu()
         {
             InitializeComponent();
@@ -34,7 +35,8 @@ namespace проект_wpf_4_курс
             lbGenderFilter.DisplayMemberPath = "gender";
             lu1 = users;
             lbUsersList.ItemsSource = users;
-            
+            DataContext = NewPage;
+
         }
 
         private void lbTraits_Loaded(object sender, RoutedEventArgs e)
@@ -133,6 +135,7 @@ namespace проект_wpf_4_курс
             }
 
             lbUsersList.ItemsSource = lu1;
+            NewPage.Countlist = lu1.Count;
         }
 
         private void UserImage_Loaded(object sender, RoutedEventArgs e)
@@ -155,6 +158,44 @@ namespace проект_wpf_4_курс
             }
 
             IMG.Source = BI;
+        }
+
+        private void txtPrev_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock tb = (TextBlock)sender;//определяем, какой текстовый блок был нажат           
+            //изменение номера страници при нажатии на кнопку
+            switch (tb.Uid)
+            {
+                case "prev":
+                    NewPage.CurrentPage--;
+                    break;
+                case "next":
+                    NewPage.CurrentPage++;
+                    break;
+                default:
+                    NewPage.CurrentPage = Convert.ToInt32(tb.Text);
+                    break;
+            }
+
+
+            //определение списка
+            lbUsersList.ItemsSource = lu1.Skip(NewPage.CurrentPage * NewPage.CountPage - NewPage.CountPage).Take(NewPage.CountPage).ToList();
+
+            txtCurrentPage.Text = "Текущая страница: " + (NewPage.CurrentPage).ToString();
+        }
+
+        private void txtPageCount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                NewPage.CountPage = Convert.ToInt32(txtPageCount.Text);
+            }
+            catch
+            {
+                NewPage.CountPage = lu1.Count;
+            }
+            NewPage.Countlist = users.Count;
+            lbUsersList.ItemsSource = lu1.Skip(0).Take(NewPage.CountPage).ToList();
         }
     }
 }
