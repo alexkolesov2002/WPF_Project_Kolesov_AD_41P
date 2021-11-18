@@ -27,6 +27,12 @@
             </Border>
 
         </ControlTemplate>
+        <ControlTemplate TargetType="Button" x:Key="TEST" >
+            <Border  HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Foreground="Blue" Text="TEST"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Border>
+
+        </ControlTemplate>
         <DataTemplate x:Key="DT1">
             <!--Шаблон для вывода информации о пользователе-->
             <StackPanel>
@@ -59,6 +65,10 @@
                 </StackPanel>
                 <StackPanel Margin="5" >
                     <Button Template="{StaticResource AddPhoto}"   x:Name="AddAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </StackPanel>
+                <StackPanel Margin="5" >
+                    <Button Template="{StaticResource TEST}"   x:Name="TEST1" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="TEST_Click_1" Uid ="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </StackPanel>
             </StackPanel>
@@ -100,6 +110,7 @@
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
+            
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Name="txtPrev" Uid="prev" Text=" Пред. " MouseDown="txtPrev_MouseDown"/>
                 <TextBlock Name="txt1" Uid="1" Text="{Binding  Path = NPage[0], StringFormat={}{0,3}}" Visibility="{Binding Visible[0]}" FontWeight="{Binding Bold[0]}" MouseDown="txtPrev_MouseDown"/>

@@ -26,7 +26,9 @@ namespace проект_wpf_4_курс
     {
         List<users> lu1;
         List<users> users;
+        List<usersimage> USIM;
         PageChange NewPage = new PageChange();
+        
         public pgAdminMenu()
         {
             InitializeComponent();
@@ -228,27 +230,60 @@ namespace проект_wpf_4_курс
 
         private void AddAvatar_Click(object sender, RoutedEventArgs e)
         {
+
             Button BTN = (Button)sender;
             int ind = Convert.ToInt32(BTN.Uid);
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
-            openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
-            var result = openFileDialog.ShowDialog();
-            if (result == true)//если файл выбран
+            USIM = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
+            MessageBox.Show(Convert.ToString(USIM.Count()));
+            if (USIM.Count == 0)
             {
-                System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
-                ImageConverter IC = new ImageConverter();//конвертер изображения в массив байт
-                byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
-                usersimage UI = new usersimage() { id_user = ind, image = ByteArr };//создаем новый объект usersimage
-                BaseConnect.BaseModel.usersimage.Add(UI);//добавляем его в модель
-                BaseConnect.BaseModel.SaveChanges();//синхронизируем с базой
-                MessageBox.Show("Картинка пользователя добавлена в базу");
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
+                openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
+                var result = openFileDialog.ShowDialog();
+                if (result == true)//если файл выбран
+                {
+                    System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
+                    ImageConverter IC = new ImageConverter();//конвертер изображения в массив байт
+                    byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
+                    usersimage UI = new usersimage() { id_user = ind, image = ByteArr };//создаем новый объект usersimage
+                    BaseConnect.BaseModel.usersimage.Add(UI);//добавляем его в модель
+                    BaseConnect.BaseModel.SaveChanges();//синхронизируем с базой
+                    MessageBox.Show("Картинка пользователя добавлена в базу");
+                }
+                else
+                {
+                    MessageBox.Show("Вы не выбрали фото");
+                }
             }
-            else
+            else if (USIM.Count == 1)
             {
-                MessageBox.Show("Вы не выбрали фото");
+                usersimage usim = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id_user == ind);
+                BaseConnect.BaseModel.usersimage.Remove(usim);
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
+                openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
+                var result = openFileDialog.ShowDialog();
+                if (result == true)//если файл выбран
+                {
+                    System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
+                    ImageConverter IC = new ImageConverter();//конвертер изображения в массив байт
+                    byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
+                    usersimage UI = new usersimage() { id_user = ind, image = ByteArr };//создаем новый объект usersimage
+                    BaseConnect.BaseModel.usersimage.Add(UI);//добавляем его в модель
+                    BaseConnect.BaseModel.SaveChanges();//синхронизируем с базой
+                    MessageBox.Show("Картинка пользователя добавлена в базу");
+                }
+                else
+                {
+                    MessageBox.Show("Вы не выбрали фото");
+                }
             }
-          //  UserImage_Loaded(null, null);
+          //  UserImage_Loaded(BTN, null);
+
+
+
+
         }
         private void Sort_Click(object sender, RoutedEventArgs e)
         {
@@ -267,6 +302,16 @@ namespace проект_wpf_4_курс
                 lu1.Reverse();
             }
             lbUsersList.ItemsSource = lu1;
+        }
+
+       
+
+        private void TEST_Click_1(object sender, RoutedEventArgs e)
+        {
+            Button BTN = (Button)sender;
+            int ind = Convert.ToInt32(BTN.Uid);
+            USIM = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
+            MessageBox.Show(Convert.ToString(USIM.Count()));
         }
     }
 }
