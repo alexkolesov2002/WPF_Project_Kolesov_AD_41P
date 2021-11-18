@@ -256,10 +256,14 @@ namespace проект_wpf_4_курс
                     MessageBox.Show("Вы не выбрали фото");
                 }
             }
-            else if (USIM.Count == 1)
+            else if (USIM.Count >= 1)
             {
-                usersimage usim = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id_user == ind);
-                BaseConnect.BaseModel.usersimage.Remove(usim);
+               List <usersimage> usim = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
+                foreach(usersimage uu in usim )
+                {
+                    BaseConnect.BaseModel.usersimage.Remove(uu);
+                }
+               
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
                 openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
@@ -279,7 +283,9 @@ namespace проект_wpf_4_курс
                     MessageBox.Show("Вы не выбрали фото");
                 }
             }
-          //  UserImage_Loaded(BTN, null);
+            users = BaseConnect.BaseModel.users.ToList();
+            lbUsersList.ItemsSource = users;
+
 
 
 
