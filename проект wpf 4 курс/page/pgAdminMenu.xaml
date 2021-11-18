@@ -20,6 +20,11 @@
             <Border  HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBlock Foreground="Blue" Text="Удалить пользователя"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Border>
+        </ControlTemplate>
+        <ControlTemplate TargetType="Button" x:Key="AddPhoto" >
+            <Border  HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Foreground="Blue" Text="Добавить пользователю фото"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Border>
 
         </ControlTemplate>
         <DataTemplate x:Key="DT1">
@@ -41,7 +46,7 @@
                     <ListBox Name="lbTraits" Loaded="lbTraits_Loaded" Uid="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </GroupBox>
-                <Image x:Name="UserImage" Loaded="UserImage_Loaded" Uid="{Binding id}"/>
+                <Image x:Name="UserImage" Loaded="UserImage_Loaded"  Width="150"  Height="150" Uid="{Binding id}"/>
                 <!--тут будет вложенный список, т.к. связи многие ко многим-->
                 <StackPanel Margin="5" >
                     <Button Template="{StaticResource EditUser}"  HorizontalAlignment="Right" VerticalAlignment="Center"   Click="Button_Click" Uid="{Binding id}"/>
@@ -52,12 +57,16 @@
                     <Button Template="{StaticResource Delete}"   x:Name="RemoveUser" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="RemoveUser_Click" Uid ="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </StackPanel>
+                <StackPanel Margin="5" >
+                    <Button Template="{StaticResource AddPhoto}"   x:Name="AddAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </StackPanel>
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="55"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0"  Orientation="Horizontal">
@@ -78,6 +87,18 @@
             <Button x:Name="btnNewUser" Content="Добавить пользователя"  Margin="5" Click="btnNewUser_Click"></Button>
             <GroupBox Header="Сколько вывести пользователь">
                 <TextBox Name="txtPageCount" TextChanged="txtPageCount_TextChanged" />
+            </GroupBox>
+            <GroupBox Header="Сортировка">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <RadioButton x:Name="sz" Content ="по имени" Click="Sort_Click" Uid="name"/>
+                        <RadioButton x:Name="szz" Content ="по дате рождения" Click="Sort_Click" Uid="DR"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <RadioButton  x:Name="szzz" Content ="по возрастанию" Click="Sort_Click"/>
+                        <RadioButton  x:Name="RBReverse" Content ="по убыванию" Click="Sort_Click"/>
+                    </StackPanel>
+                </StackPanel>
             </GroupBox>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Name="txtPrev" Uid="prev" Text=" Пред. " MouseDown="txtPrev_MouseDown"/>

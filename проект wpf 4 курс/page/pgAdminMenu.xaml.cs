@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace проект_wpf_4_курс
 {
@@ -63,6 +67,10 @@ namespace проект_wpf_4_курс
             txtNameFilter.Text = "";//сбрасываем фильтр на строку
             txtOT.Text = "";
             txtDO.Text = "";
+            sz.IsChecked = false;
+            szz.IsChecked = false;
+            szzz.IsChecked = false;
+            RBReverse.IsChecked = false;
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
@@ -140,22 +148,42 @@ namespace проект_wpf_4_курс
 
         private void UserImage_Loaded(object sender, RoutedEventArgs e)
         {
-            Image IMG = sender as Image;
+            System.Windows.Controls.Image IMG = sender as System.Windows.Controls.Image;
             int ind = Convert.ToInt32(IMG.Uid);
-            users U = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == ind);
-            BitmapImage BI;
-            switch (U.gender)
+            users U = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == ind);//запись о текущем пользователе
+            usersimage UI = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id_user == ind);//получаем запись о картинке для текущего пользователя
+            BitmapImage BI = new BitmapImage();
+            if (UI != null)//если для текущего пользователя существует запись о его катринке
             {
-                case 1:
-                    BI = new BitmapImage(new Uri(@"/res/Dog.jpg", UriKind.Relative));
-                    break;
-                case 2:
-                    BI = new BitmapImage(new Uri(@"/res/Panda.jpg", UriKind.Relative));
-                    break;
-                default:
-                    BI = new BitmapImage(new Uri(@"/res/unnamed.jpg", UriKind.Relative));
-                    break;
+                if (UI.path != null)//если присутствует путь к картинке
+                {
+                    BI = new BitmapImage(new Uri(UI.path, UriKind.Relative));
+                }
+                else//если присутствуют двоичные данные
+                {
+                    BI.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
+                    BI.StreamSource = new MemoryStream(UI.image);//помещаем в источник данных двоичные данные из потока
+                    BI.EndInit();//закончить инициализацию
+                }
             }
+            else
+            {
+
+                switch (U.gender)
+                {
+                    case 1:
+                        BI = new BitmapImage(new Uri(@"/res/Dog.jpg", UriKind.Relative));
+                        break;
+                    case 2:
+                        BI = new BitmapImage(new Uri(@"/res/Panda.jpg", UriKind.Relative));
+                        break;
+                    default:
+                        BI = new BitmapImage(new Uri(@"/res/unnamed.jpg", UriKind.Relative));
+                        break;
+                }
+            }
+          
+            
 
             IMG.Source = BI;
         }
@@ -196,6 +224,49 @@ namespace проект_wpf_4_курс
             }
             NewPage.Countlist = users.Count;
             lbUsersList.ItemsSource = lu1.Skip(0).Take(NewPage.CountPage).ToList();
+        }
+
+        private void AddAvatar_Click(object sender, RoutedEventArgs e)
+        {
+            Button BTN = (Button)sender;
+            int ind = Convert.ToInt32(BTN.Uid);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
+            openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
+            var result = openFileDialog.ShowDialog();
+            if (result == true)//если файл выбран
+            {
+                System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
+                ImageConverter IC = new ImageConverter();//конвертер изображения в массив байт
+                byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
+                usersimage UI = new usersimage() { id_user = ind, image = ByteArr };//создаем новый объект usersimage
+                BaseConnect.BaseModel.usersimage.Add(UI);//добавляем его в модель
+                BaseConnect.BaseModel.SaveChanges();//синхронизируем с базой
+                MessageBox.Show("Картинка пользователя добавлена в базу");
+            }
+            else
+            {
+                MessageBox.Show("Вы не выбрали фото");
+            }
+          //  UserImage_Loaded(null, null);
+        }
+        private void Sort_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton RB = (RadioButton)sender;
+            switch (RB.Uid)
+            {
+                case "name":
+                    lu1 = lu1.OrderBy(x => x.name).ToList();
+                    break;
+                case "DR":
+                    lu1 = lu1.OrderBy(x => x.dr).ToList();
+                    break;
+            }
+            if (RBReverse.IsChecked == true) 
+            {
+                lu1.Reverse();
+            }
+            lbUsersList.ItemsSource = lu1;
         }
     }
 }
