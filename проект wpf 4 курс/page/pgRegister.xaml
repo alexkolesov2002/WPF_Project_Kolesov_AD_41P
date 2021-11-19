@@ -35,10 +35,10 @@
                                 <CheckBox x:Name="ch3d" > </CheckBox>
                             </StackPanel>
                         </GroupBox>
-                        <Button  Content ="Зарегестрироваться"  Name="btnRegister" Click="btnRegister_Click" >
-
-                        </Button>
+                   
+                        <Button  Content ="Зарегестрироваться"  Name="btnRegister" Click="btnRegister_Click" ></Button>
                         <Button Content="Назад" Name="btnBack" Click="btnBack_Click"/>
+                        
                     </StackPanel>
                 </GroupBox>
             </ScrollViewer>

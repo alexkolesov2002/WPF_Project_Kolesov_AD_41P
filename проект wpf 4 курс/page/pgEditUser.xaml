@@ -4,9 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:проект_wpf_4_курс"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="pgEditUser">
+      mc:Ignorable="d"
+      Title="pgEditUser" Height="560" Width="795">
 
     <Grid>
         <ScrollViewer>
@@ -25,7 +24,7 @@
                         <DatePicker Name="dtDr" />
                     </GroupBox>
                     <StackPanel>
-                        <TextBlock  Text="Текущий пол пользователя:  "  x:Name="txtPol" Margin="5" > </TextBlock>
+                        <TextBlock  Text="Текущий пол пользователя:  "  x:Name="txtPol" Margin="5" ></TextBlock>
                     </StackPanel>
                     <GroupBox Header="Изменить при необходимости">
                         <ListBox x:Name="listGenders"/>
@@ -37,10 +36,17 @@
                             <CheckBox x:Name="ch3d" ></CheckBox>
                         </StackPanel>
                     </GroupBox>
-                    <Button  Content ="Изменить данные"  Name="btnEdit" Click="btnEdit_Click" >
+                    <GroupBox Header="Фото">
+                        <Image x:Name="Image" Loaded="Image_Loaded" Width="150"  Height="120"  />
+                    </GroupBox>
+                    <GroupBox Header="Выберите другие фото">
+                        <ListBox x:Name="listPhoto" Loaded="listPhoto_Loaded"/>
+                    </GroupBox>
+                    <Button  Content ="Изменить данные"  Name="btnEdit" Click="btnEdit_Click"  >
 
                     </Button>
                     <Button Content="Назад" Name="btnBack" Click="btnBack_Click"/>
+
                 </StackPanel>
             </GroupBox>
         </ScrollViewer>

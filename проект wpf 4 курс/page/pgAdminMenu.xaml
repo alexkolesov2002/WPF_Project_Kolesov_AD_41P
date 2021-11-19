@@ -23,10 +23,13 @@
         </ControlTemplate>
         <ControlTemplate TargetType="Button" x:Key="AddPhoto" >
             <Border  HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBlock Foreground="Blue" Text="Добавить пользователю фото / Изменить фото пользователя"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock Foreground="Blue" Text="Добавить пользователю фото "  HorizontalAlignment="Right" VerticalAlignment="Center"/>
             </Border>
-
-       
+        </ControlTemplate>
+        <ControlTemplate TargetType="Button" x:Key="EditPhoto" >
+            <Border  HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Foreground="Blue" Text=" Изменить фото пользователя"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Border>
         </ControlTemplate>
         <DataTemplate x:Key="DT1">
             <!--Шаблон для вывода информации о пользователе-->
@@ -62,7 +65,11 @@
                     <Button Template="{StaticResource AddPhoto}"   x:Name="AddAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </StackPanel>
-                
+                <StackPanel Margin="5" >
+                    <Button Template="{StaticResource EditPhoto}"   x:Name="EditAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </StackPanel>
+
             </StackPanel>
         </DataTemplate>
     </Page.Resources>

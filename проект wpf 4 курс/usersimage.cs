@@ -18,6 +18,7 @@ namespace проект_wpf_4_курс
         public int id_user { get; set; }
         public string path { get; set; }
         public byte[] image { get; set; }
+        public bool avatar { get; set; }
     
         public virtual users users { get; set; }
     }
