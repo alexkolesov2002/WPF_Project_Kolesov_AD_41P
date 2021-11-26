@@ -27,6 +27,7 @@ namespace проект_wpf_4_курс
         int x;
         int y;
         List<usersimage> userImg;
+        List<usersimage> userImgBuf;
         public auth UserCur;
         public pgEditUser(auth PickedUser)
         {
@@ -39,6 +40,12 @@ namespace проект_wpf_4_курс
             listGenders.SelectedValuePath = "id";//индексы пунктов списка
             listGenders.DisplayMemberPath = "gender";
             userImg = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == false).ToList();
+             userImgBuf = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == true).ToList(); 
+            foreach (usersimage ui in userImgBuf)
+            {
+                userImg.Insert(0,ui);
+            }
+            
             puf = UserCur.id;
             //выбор источника данных 
 
@@ -170,7 +177,7 @@ namespace проект_wpf_4_курс
                 else//если присутствуют двоичные данные
                 {
                     BI.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
-                    BI.StreamSource = new MemoryStream(UI.image);//помещаем в источник данных двоичные данные из потока
+                    BI.StreamSource = new MemoryStream(userImg[0].image);//помещаем в источник данных двоичные данные из потока
                     BI.EndInit();//закончить инициализацию
 
 
