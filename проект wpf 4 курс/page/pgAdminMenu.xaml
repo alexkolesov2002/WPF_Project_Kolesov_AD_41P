@@ -65,10 +65,7 @@
                     <Button Template="{StaticResource AddPhoto}"   x:Name="AddAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </StackPanel>
-                <StackPanel Margin="5" >
-                    <Button Template="{StaticResource EditPhoto}"   x:Name="EditAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
-                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
-                </StackPanel>
+               
 
             </StackPanel>
         </DataTemplate>

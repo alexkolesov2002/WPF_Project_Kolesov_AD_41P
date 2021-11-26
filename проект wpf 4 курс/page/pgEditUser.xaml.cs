@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,15 +23,24 @@ namespace проект_wpf_4_курс
     /// </summary>
     public partial class pgEditUser : Page
     {
+        int puf;
+        int x;
+        int y;
+        List<usersimage> userImg;
         public auth UserCur;
         public pgEditUser(auth PickedUser)
         {
+            y = 0;
+            x = 0;
             UserCur = PickedUser;
             InitializeComponent();
             txtPol.Text += PickedUser.users.genders.gender;
             listGenders.ItemsSource = BaseConnect.BaseModel.genders.Where(x => x.id != PickedUser.users.gender).ToList();
             listGenders.SelectedValuePath = "id";//индексы пунктов списка
-            listGenders.DisplayMemberPath = "gender";//выбор источника данных 
+            listGenders.DisplayMemberPath = "gender";
+            userImg = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == false).ToList();
+            puf = UserCur.id;
+            //выбор источника данных 
 
 
 
@@ -109,6 +120,18 @@ namespace проект_wpf_4_курс
                 {
                     CreateTrait(UserCur, 3);
                 }
+                int a = userImg[x].id;
+                usersimage findUser = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id == a && x.avatar == false);
+                if (findUser == null)
+                    MessageBox.Show("Данное фото уже является аватаром профиля");
+                else
+                {
+                    a = userImg[x].id_user;
+                    usersimage avatarUser = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.avatar == true && x.id_user == a);
+                    findUser.avatar = true;
+                    avatarUser.avatar = false;                  
+                    MessageBox.Show("Аватар пользователя изменен!");
+                }
                 BaseConnect.BaseModel.SaveChanges();
                 MessageBox.Show("Данные пользователя изменены");
             }
@@ -132,10 +155,11 @@ namespace проект_wpf_4_курс
 
         private void Image_Loaded(object sender, RoutedEventArgs e)
         {
+
             System.Windows.Controls.Image IMG = sender as System.Windows.Controls.Image;
-            int ind = Convert.ToInt32(UserCur.id);
+            int ind = Convert.ToInt32(puf);
             users U = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == ind);//запись о текущем пользователе
-            usersimage UI = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id_user == ind);//получаем запись о картинке для текущего пользователя
+            usersimage UI = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.id_user == ind && x.avatar == true);//получаем запись о картинке для текущего пользователя
             BitmapImage BI = new BitmapImage();
             if (UI != null)//если для текущего пользователя существует запись о его катринке
             {
@@ -148,6 +172,8 @@ namespace проект_wpf_4_курс
                     BI.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
                     BI.StreamSource = new MemoryStream(UI.image);//помещаем в источник данных двоичные данные из потока
                     BI.EndInit();//закончить инициализацию
+
+
                 }
             }
             else
@@ -170,19 +196,64 @@ namespace проект_wpf_4_курс
 
 
             IMG.Source = BI;
+
         }
 
-        private void listPhoto_Loaded(object sender, RoutedEventArgs e)
+        private void imgChange(object sender, RoutedEventArgs e)
         {
+            Button btn = (Button)sender;
+            BitmapImage BI2 = new BitmapImage();
 
+            switch (btn.Content)
+            {
+                case "Следующее":
+                    if (y < userImg.Count - 1)
+                        y++;
+                    else if (y == userImg.Count)
+                        y = userImg.Count - 1;
+                    x = y;
+                    if (x < userImg.Count)
+                    {
+                        if (userImg[x].path != null)//если присутствует путь к картинке
+                        {
+                            BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                        }
+                        else//если присутствуют двоичные данные
+                        {
+                            BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
+                            BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
+                            BI2.EndInit();//закончить инициализацию
+                        }
+                        Image.Source = BI2;
+                    }
+                    break;
+                case "Предыдущее":
+                    x = y - 1;
+                    if (y > 0)
+                        y--;
+                    if (x >= 0)
+                    {
+                        if (userImg[x].path != null)//если присутствует путь к картинке
+                        {
+                            BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                        }
+                        else//если присутствуют двоичные данные
+                        {
+                            BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
+                            BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
+                            BI2.EndInit();//закончить инициализацию
+                        }
+                        Image.Source = BI2;
+                    }
+                    break;
+            }
         }
-    }
-
-    
-
-
-}
 
         
-    
+    }
+}
+
+
+
+
 

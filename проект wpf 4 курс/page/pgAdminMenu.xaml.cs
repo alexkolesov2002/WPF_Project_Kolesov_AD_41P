@@ -233,10 +233,10 @@ namespace проект_wpf_4_курс
 
             Button BTN = (Button)sender;
             int ind = Convert.ToInt32(BTN.Uid);
-            USIM = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
+            USIM = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind && x.avatar == true).ToList();
             MessageBox.Show(Convert.ToString(USIM.Count()));
-            if (USIM.Count == 0)
-            {
+            
+            
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
                 openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
@@ -255,34 +255,8 @@ namespace проект_wpf_4_курс
                 {
                     MessageBox.Show("Вы не выбрали фото");
                 }
-            }
-            else if (USIM.Count >= 1)
-            {
-               List <usersimage> usim = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
-                foreach(usersimage uu in usim )
-                {
-                    BaseConnect.BaseModel.usersimage.Remove(uu);
-                }
-               
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.DefaultExt = ".jpg"; // задаем расширение по умолчанию
-                openFileDialog.Filter = "Изображения |*.jpg;*.png"; // задаем фильтр на форматы файлов
-                var result = openFileDialog.ShowDialog();
-                if (result == true)//если файл выбран
-                {
-                    System.Drawing.Image UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
-                    ImageConverter IC = new ImageConverter();//конвертер изображения в массив байт
-                    byte[] ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
-                    usersimage UI = new usersimage() { id_user = ind, image = ByteArr };//создаем новый объект usersimage
-                    BaseConnect.BaseModel.usersimage.Add(UI);//добавляем его в модель
-                    BaseConnect.BaseModel.SaveChanges();//синхронизируем с базой
-                    MessageBox.Show("Картинка пользователя добавлена в базу");
-                }
-                else
-                {
-                    MessageBox.Show("Вы не выбрали фото");
-                }
-            }
+            
+           
             users = BaseConnect.BaseModel.users.ToList();
             lbUsersList.ItemsSource = users;
 

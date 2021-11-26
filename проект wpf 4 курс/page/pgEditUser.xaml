@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:проект_wpf_4_курс"
       mc:Ignorable="d"
       Title="pgEditUser" Height="560" Width="795">
-
+   
     <Grid>
         <ScrollViewer>
             <GroupBox Header="Введите данные о себе" Margin="20">
@@ -39,9 +39,13 @@
                     <GroupBox Header="Фото">
                         <Image x:Name="Image" Loaded="Image_Loaded" Width="150"  Height="120"  />
                     </GroupBox>
-                    <GroupBox Header="Выберите другие фото">
-                        <ListBox x:Name="listPhoto" Loaded="listPhoto_Loaded"/>
-                    </GroupBox>
+                    <StackPanel Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Предыдущее" Name="btnPrev"  Click="imgChange"></Button>
+                            <Button Content="Следующее" Name="btnNext" Click="imgChange"></Button>
+                        </StackPanel>
+                        <!--<Button Content=" Выбрать новое фото" Name="btnChange" Click="btnChange_Click"> </Button>-->
+                    </StackPanel>
                     <Button  Content ="Изменить данные"  Name="btnEdit" Click="btnEdit_Click"  >
 
                     </Button>

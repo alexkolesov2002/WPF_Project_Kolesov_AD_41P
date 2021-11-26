@@ -71,6 +71,9 @@ namespace проект_wpf_4_курс
                     BI.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
                     BI.StreamSource = new MemoryStream(UI.image);//помещаем в источник данных двоичные данные из потока
                     BI.EndInit();//закончить инициализацию
+                   
+                   
+                 
                 }
             }
             else
