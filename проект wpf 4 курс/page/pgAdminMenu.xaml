@@ -37,8 +37,8 @@
                 <GroupBox Header="имя">
                     <TextBlock Text="{Binding name}"/>
                 </GroupBox>
-                <GroupBox Header=" дата рождения">
-                    <TextBlock Text="{Binding dr, StringFormat={}{0:dd.MM.yyyy}}"/>
+                <GroupBox   Header=" дата рождения" >
+                    <TextBlock Name="txtVozrast"  Text="{Binding dr, StringFormat={}{0:dd.MM.yyyy}}" Loaded="txtVozrast_Loaded"  Uid="{Binding id}"/>
                     <!--указание формата вывода даты-->
                 </GroupBox>
                 <GroupBox Header=" пол">
@@ -117,6 +117,7 @@
                 <TextBlock Name="txtNext" Uid="next" Text=" След." MouseDown="txtPrev_MouseDown"/>
             </StackPanel>
             <TextBlock Name="txtCurrentPage"/>
+            
         </StackPanel>
         <ListBox Name="lbUsersList" ItemTemplate="{StaticResource DT1}" Grid.Row="1"/>
     </Grid>

@@ -46,6 +46,7 @@
                         </StackPanel>
                         <!--<Button Content=" Выбрать новое фото" Name="btnChange" Click="btnChange_Click"> </Button>-->
                     </StackPanel>
+                    
                     <Button  Content ="Изменить данные"  Name="btnEdit" Click="btnEdit_Click"  >
 
                     </Button>

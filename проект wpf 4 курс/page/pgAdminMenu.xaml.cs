@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Brushes = System.Windows.Media.Brushes;
 
 namespace проект_wpf_4_курс
 {
@@ -40,7 +40,9 @@ namespace проект_wpf_4_курс
             lbGenderFilter.SelectedValuePath = "id";
             lbGenderFilter.DisplayMemberPath = "gender";
             lu1 = users;
+            
             lbUsersList.ItemsSource = users;
+            
             DataContext = NewPage;
 
         }
@@ -292,6 +294,27 @@ namespace проект_wpf_4_курс
             int ind = Convert.ToInt32(BTN.Uid);
             USIM = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == ind).ToList();
             MessageBox.Show(Convert.ToString(USIM.Count()));
+        }
+
+        private void txtVozrast_Loaded(object sender, RoutedEventArgs e)
+        { int Vozrast;
+            
+            TextBlock tb = (TextBlock)sender;
+            int index = Convert.ToInt32(tb.Uid);
+            users us = BaseConnect.BaseModel.users.FirstOrDefault(x=> x.id == index);
+            var today = DateTime.Today;
+
+            // Calculate the age.
+            Vozrast = today.Year - us.dr.Year;
+
+            // Go back to the year in which the person was born in case of a leap year
+            if (us.dr.Date > today.AddYears(Convert.ToInt32(-Vozrast))) Vozrast--;
+            if ( us != null  && Vozrast > 10 )
+            {
+
+                tb.Foreground = Brushes.Red;
+            }
+            
         }
     }
 }

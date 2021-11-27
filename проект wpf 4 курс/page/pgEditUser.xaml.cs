@@ -233,7 +233,8 @@ namespace проект_wpf_4_курс
                         }
                         Image.Source = BI2;
                     }
-                    break;
+                 
+                        break;
                 case "Предыдущее":
                     x = y - 1;
                     if (y > 0)
@@ -252,6 +253,7 @@ namespace проект_wpf_4_курс
                         }
                         Image.Source = BI2;
                     }
+                   
                     break;
             }
         }
