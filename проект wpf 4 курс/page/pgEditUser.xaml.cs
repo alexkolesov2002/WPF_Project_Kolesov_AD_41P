@@ -214,11 +214,10 @@ namespace проект_wpf_4_курс
             switch (btn.Content)
             {
                 case "Следующее":
-                    if (y < userImg.Count - 1)
-                        y++;
-                    else if (y == userImg.Count)
-                        y = userImg.Count - 1;
-                    x = y;
+                    if (x < userImg.Count - 1)
+                        x++;
+                    else
+                        x = 0;
                     if (x < userImg.Count)
                     {
                         if (userImg[x].path != null)//если присутствует путь к картинке
@@ -236,9 +235,10 @@ namespace проект_wpf_4_курс
                  
                         break;
                 case "Предыдущее":
-                    x = y - 1;
-                    if (y > 0)
-                        y--;
+                    if (x != 0)
+                        x--;
+                    else
+                        x = userImg.Count - 1;
                     if (x >= 0)
                     {
                         if (userImg[x].path != null)//если присутствует путь к картинке
