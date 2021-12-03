@@ -8,6 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="1000"
       Title="pgAdminMenu">
     <Page.Resources>
+        <Style TargetType="StackPanel" x:Key="SPstyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TooOld}" Value="True">
+                    <Setter Property="Background" Value="Yellow"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
 
         <ControlTemplate TargetType="Button" x:Key="EditUser" >
@@ -33,7 +40,11 @@
         </ControlTemplate>
         <DataTemplate x:Key="DT1">
             <!--Шаблон для вывода информации о пользователе-->
-            <StackPanel>
+            <StackPanel  Style="{StaticResource SPstyle}">
+                <StackPanel Margin="3" HorizontalAlignment="Stretch">
+                    <Line X2="1" Stroke="Black" HorizontalAlignment="Stretch" Stretch="Fill"></Line>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </StackPanel>
                 <GroupBox Header="имя">
                     <TextBlock Text="{Binding name}"/>
                 </GroupBox>
@@ -63,6 +74,10 @@
                 </StackPanel>
                 <StackPanel Margin="5" >
                     <Button Template="{StaticResource AddPhoto}"   x:Name="AddAvatar" HorizontalAlignment="Right" VerticalAlignment="Center"   Click="AddAvatar_Click" Uid ="{Binding id}"/>
+                    <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
+                </StackPanel>
+                <StackPanel Margin="3" HorizontalAlignment="Stretch">
+                    <Line X2="1" Stroke="Black" HorizontalAlignment="Stretch" Stretch="Fill"></Line>
                     <!--loaded - событие, которое происходит при создании элемента списка из шаблона-->
                 </StackPanel>
                

@@ -40,12 +40,12 @@ namespace проект_wpf_4_курс
             listGenders.SelectedValuePath = "id";//индексы пунктов списка
             listGenders.DisplayMemberPath = "gender";
             userImg = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == false).ToList();
-             userImgBuf = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == true).ToList(); 
+            userImgBuf = BaseConnect.BaseModel.usersimage.Where(x => x.id_user == PickedUser.users.id && x.avatar == true).ToList();
             foreach (usersimage ui in userImgBuf)
             {
-                userImg.Insert(0,ui);
+                userImg.Insert(0, ui);
             }
-            
+
             puf = UserCur.id;
             //выбор источника данных 
 
@@ -136,7 +136,7 @@ namespace проект_wpf_4_курс
                     a = userImg[x].id_user;
                     usersimage avatarUser = BaseConnect.BaseModel.usersimage.FirstOrDefault(x => x.avatar == true && x.id_user == a);
                     findUser.avatar = true;
-                    avatarUser.avatar = false;                  
+                    avatarUser.avatar = false;
                     MessageBox.Show("Аватар пользователя изменен!");
                 }
                 BaseConnect.BaseModel.SaveChanges();
@@ -208,57 +208,65 @@ namespace проект_wpf_4_курс
 
         private void imgChange(object sender, RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
-            BitmapImage BI2 = new BitmapImage();
-
-            switch (btn.Content)
+            try
             {
-                case "Следующее":
-                    if (x < userImg.Count - 1)
-                        x++;
-                    else
-                        x = 0;
-                    if (x < userImg.Count)
-                    {
-                        if (userImg[x].path != null)//если присутствует путь к картинке
+                Button btn = (Button)sender;
+                BitmapImage BI2 = new BitmapImage();
+
+                switch (btn.Content)
+                {
+                    case "Следующее":
+                        if (x < userImg.Count - 1)
+                            x++;
+                        else
+                            x = 0;
+                        if (x < userImg.Count)
                         {
-                            BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                            if (userImg[x].path != null)//если присутствует путь к картинке
+                            {
+                                BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                            }
+                            else//если присутствуют двоичные данные
+                            {
+                                BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
+                                BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
+                                BI2.EndInit();//закончить инициализацию
+                            }
+                            Image.Source = BI2;
                         }
-                        else//если присутствуют двоичные данные
-                        {
-                            BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
-                            BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
-                            BI2.EndInit();//закончить инициализацию
-                        }
-                        Image.Source = BI2;
-                    }
-                 
+
                         break;
-                case "Предыдущее":
-                    if (x != 0)
-                        x--;
-                    else
-                        x = userImg.Count - 1;
-                    if (x >= 0)
-                    {
-                        if (userImg[x].path != null)//если присутствует путь к картинке
+                    case "Предыдущее":
+                        if (x != 0)
+                            x--;
+                        else
+                            x = userImg.Count - 1;
+                        if (x >= 0)
                         {
-                            BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                            if (userImg[x].path != null)//если присутствует путь к картинке
+                            {
+                                BI2 = new BitmapImage(new Uri(userImg[x].path, UriKind.Relative));
+                            }
+                            else//если присутствуют двоичные данные
+                            {
+                                BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
+                                BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
+                                BI2.EndInit();//закончить инициализацию
+                            }
+                            Image.Source = BI2;
                         }
-                        else//если присутствуют двоичные данные
-                        {
-                            BI2.BeginInit();//начать инициализацию BitmapImage (для помещения данных из какого-либо потока)
-                            BI2.StreamSource = new MemoryStream(userImg[x].image);//помещаем в источник данных двоичные данные из потока
-                            BI2.EndInit();//закончить инициализацию
-                        }
-                        Image.Source = BI2;
-                    }
-                   
-                    break;
+
+                        break;
+                }
+
+            }
+            catch
+            {
+                MessageBox.Show("Ты дуля");
             }
         }
 
-        
+
     }
 }
 
