@@ -1,0 +1,35 @@
+﻿<Page x:Class="проект_wpf_4_курс.pgVideo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:проект_wpf_4_курс"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+    Title="pgVideo">
+   
+    <Grid x:Name="MainGrid">
+        <StackPanel  Orientation="Vertical">
+            <StackPanel Margin="0,10" Width="1000" Height="500">
+                <MediaElement MediaOpened="VideoPlayer_Loaded"  x:Name="VideoPlayer" LoadedBehavior="Manual" Source="MediaElements/Davos.mp4" Volume="{Binding ElementName=slVolume, Path=Value}" />
+            </StackPanel>
+            <StackPanel   HorizontalAlignment="Center" Orientation="Horizontal" Width="794" >
+                <Button  Background="Transparent" Height="30" Margin="0,10" Tag="Play" Click="Button_Click">
+                    <Image Source="Images/Play.png"/>
+                </Button>
+                <Button Background="Transparent" Height="30" Tag="Pause" Click="Button_Click">
+                    <Image Source="Images/Pause.png"/>
+                </Button>
+                <Button Background="Transparent" Height="30" Margin="0,10" Tag="Stop" Click="Button_Click">
+                    <Image Source="Images/Stop.png"/>
+                </Button>
+                <GroupBox Header="{Binding currentS}" >
+                    <Slider Width="600" Maximum="0" PreviewMouseLeftButtonUp="slPosition_PreviewMouseLeftButtonUp" x:Name="slPosition"  Minimum="0" SmallChange=".1" LargeChange="1" Value="{Binding current}" />
+                </GroupBox>
+                <GroupBox  Header="Звук">
+                    <Slider Width="50" x:Name="slVolume" Maximum="1" Minimum="0" SmallChange=".1" LargeChange=".1" Value="1" />
+                </GroupBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

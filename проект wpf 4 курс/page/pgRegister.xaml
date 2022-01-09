@@ -33,6 +33,7 @@
                                 <CheckBox x:Name="ch1st"  > </CheckBox>
                                 <CheckBox x:Name="ch2d" ></CheckBox>
                                 <CheckBox x:Name="ch3d" > </CheckBox>
+                                <CheckBox x:Name="ch4d" ></CheckBox>
                             </StackPanel>
                         </GroupBox>
                    

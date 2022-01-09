@@ -28,7 +28,7 @@ namespace проект_wpf_4_курс
             listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();//выбор источника данных 
             listGenders.SelectedValuePath = "id";//индексы пунктов списка
             listGenders.DisplayMemberPath = "gender";
-            string[] traits1 = new string[3];
+            string[] traits1 = new string[4];
             List<traits> traits2 = BaseConnect.BaseModel.traits.ToList();
             int i = 0;
             foreach (traits traits in traits2)
@@ -38,7 +38,8 @@ namespace проект_wpf_4_курс
             }
             ch1st.Content = traits1[0];
             ch2d.Content = traits1[1];
-            ch3d.Content = traits1[2]; 
+            ch3d.Content = traits1[2];
+            ch4d.Content = traits1[3];
 
         }
 
@@ -46,7 +47,7 @@ namespace проект_wpf_4_курс
         {
             try
             {
-                auth LoginAndPass = new auth() { login = txtLogin.Text, password = txtPass.Password, role = 2 };
+                auth LoginAndPass = new auth() { login = txtLogin.Text, password = Convert.ToString(Convert.ToBase64String(Encoding.UTF8.GetBytes(txtPass.Password))), role = 2 };
                 BaseConnect.BaseModel.auth.Add(LoginAndPass);//добавить в модель
                 BaseConnect.BaseModel.SaveChanges();
 
@@ -72,6 +73,13 @@ namespace проект_wpf_4_курс
                     users_to_traits users_To_Traits = new users_to_traits();
                     users_To_Traits.id_user = User.id;
                     users_To_Traits.id_trait = 3;
+                    BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
+                }
+                if (ch4d.IsChecked == true)
+                {
+                    users_to_traits users_To_Traits = new users_to_traits();
+                    users_To_Traits.id_user = User.id;
+                    users_To_Traits.id_trait = 4;
                     BaseConnect.BaseModel.users_to_traits.Add(users_To_Traits);
                 }
                 BaseConnect.BaseModel.SaveChanges();

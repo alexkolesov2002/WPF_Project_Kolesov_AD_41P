@@ -68,21 +68,24 @@
     <Compile Include="auth.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaseConnect.cs" />
-    <Compile Include="UserChange.cs" />
-    <Compile Include="window\EditPhoto.xaml.cs">
-      <DependentUpon>EditPhoto.xaml</DependentUpon>
+    <Compile Include="Clasi\BaseConnect.cs" />
+    <Compile Include="page\Graphxaml.xaml.cs">
+      <DependentUpon>Graphxaml.xaml</DependentUpon>
     </Compile>
+    <Compile Include="page\pgVideo.xaml.cs">
+      <DependentUpon>pgVideo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Clasi\UserChange.cs" />
     <Compile Include="genders.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="LoadPages.cs" />
+    <Compile Include="Clasi\LoadPages.cs" />
     <Compile Include="Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="PageChange.cs" />
+    <Compile Include="Clasi\PageChange.cs" />
     <Compile Include="page\pgAdminMenu.xaml.cs">
       <DependentUpon>pgAdminMenu.xaml</DependentUpon>
     </Compile>
@@ -104,6 +107,7 @@
     <Compile Include="roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="TimeLine.cs" />
     <Compile Include="traits.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -116,7 +120,7 @@
     <Compile Include="users_to_traits.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Page Include="window\EditPhoto.xaml">
+    <Page Include="page\Graphxaml.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="page\pgEditUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="page\pgVideo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -218,6 +226,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="res\refresh.png" />
     <Resource Include="res\Dog.jpg" />
     <Resource Include="res\Panda.jpg" />
     <Resource Include="res\unnamed.jpg" />
@@ -227,6 +236,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="window\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
