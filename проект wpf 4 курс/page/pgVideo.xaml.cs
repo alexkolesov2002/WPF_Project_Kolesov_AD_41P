@@ -19,13 +19,12 @@ namespace проект_wpf_4_курс
     /// <summary>
     /// Логика взаимодействия для pgVideo.xaml
     /// </summary>
-    public partial class pgVideo : Page
+    public partial class  pgVideo : Page
     {
         TimeLine timeLine = new TimeLine();
         public static double currentMain { get; set; } = 0;
         public pgVideo()
         {
-            InitializeComponent();
             InitializeComponent();
             ColorAnimation colorAnimation = new ColorAnimation();
             colorAnimation.From = Color.FromRgb(255, 176, 46);
@@ -33,8 +32,13 @@ namespace проект_wpf_4_курс
             colorAnimation.Duration = TimeSpan.FromSeconds(10);
             colorAnimation.AutoReverse = true;
             colorAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            MainGrid.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            MainGrid.Background.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
             DataContext = timeLine;
+            // VideoPlayer.Play();
+            // timeLine.IsPlay = true;
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -71,5 +75,11 @@ namespace проект_wpf_4_курс
             VideoPlayer.Position = TimeSpan.FromSeconds(slPosition.Value);
             timeLine.IsPlay = true;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            LoadPages.switchPage.GoBack();
+        }
     }
 }
+

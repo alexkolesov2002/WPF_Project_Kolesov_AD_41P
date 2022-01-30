@@ -72,9 +72,6 @@
     <Compile Include="page\Graphxaml.xaml.cs">
       <DependentUpon>Graphxaml.xaml</DependentUpon>
     </Compile>
-    <Compile Include="page\pgVideo.xaml.cs">
-      <DependentUpon>pgVideo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Clasi\UserChange.cs" />
     <Compile Include="genders.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -104,10 +101,13 @@
     <Compile Include="page\pgEditUser.xaml.cs">
       <DependentUpon>pgEditUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="page\pgVideo.xaml.cs">
+      <DependentUpon>pgVideo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="roles.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="TimeLine.cs" />
+    <Compile Include="Clasi\TimeLine.cs" />
     <Compile Include="traits.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -119,6 +119,9 @@
     </Compile>
     <Compile Include="users_to_traits.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="window\WinVideo.xaml.cs">
+      <DependentUpon>WinVideo.xaml</DependentUpon>
     </Compile>
     <Page Include="page\Graphxaml.xaml">
       <SubType>Designer</SubType>
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="page\pgVideo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="window\WinVideo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -226,6 +233,15 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="page\Hasky.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\Hasky.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="res\Start.jpg" />
+    <Resource Include="res\Pause.png" />
+    <Resource Include="res\Stop.png" />
     <Resource Include="res\refresh.png" />
     <Resource Include="res\Dog.jpg" />
     <Resource Include="res\Panda.jpg" />
@@ -236,8 +252,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="window\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

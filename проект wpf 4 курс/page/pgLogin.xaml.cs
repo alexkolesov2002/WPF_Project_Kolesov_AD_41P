@@ -128,7 +128,7 @@ namespace проект_wpf_4_курс
 
         private void btnVideo_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.switchPage.Navigate(new pgVideo());
+            LoadPages.switchPage.Navigate( new pgVideo());
         }
     }
 }
